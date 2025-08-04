@@ -1,9 +1,11 @@
 var express = require('express');
 var request = require('request');
 bodyParser = require('body-parser');
+var cors = require('cors')
 
 var app = express();
 app.use(bodyParser.json());
+app.use(cors())
 
 const BASE_URL = 'https://crudcrud.com/api/0cc6e7c36346447bb2056fa6dfe323c0';
 
