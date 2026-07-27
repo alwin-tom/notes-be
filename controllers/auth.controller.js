@@ -49,32 +49,23 @@ exports.login = (req, res) => {
 
 };
 
+exports.callback = async(req,res)=>{
 
-exports.callback = async (req, res) => {
-
-    try {
-
-        const code = req.query.code;
-
-        const tokens = await authenticate(code);
+    const code=req.query.code;
 
 
-        req.session.googleTokens = tokens;
+    const tokens =
+        await authenticate(code);
 
 
-        res.redirect(
-            `${process.env.FRONTEND_URL}/dashboard`
-        );
+    console.log("Google Tokens:", tokens);
 
 
-    } catch(error) {
+    req.session.googleTokens=tokens;
 
-        console.error(error);
 
-        res.status(500).json({
-            error:"Authentication failed"
-        });
-
-    }
+    res.redirect(
+        `${process.env.FRONTEND_URL}/dashboard`
+    );
 
 };
