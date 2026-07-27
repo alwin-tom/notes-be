@@ -1,15 +1,23 @@
+const {
+    getAuthUrl,
+    authenticate
+} = require("../googleClient");
+
+
+exports.login = (req, res) => {
+
+    const url = getAuthUrl();
+
+    res.redirect(url);
+
+};
+
+
 exports.callback = async (req, res) => {
 
     try {
 
         const code = req.query.code;
-
-        if (!code) {
-            return res.status(400).json({
-                error: "Authorization code missing"
-            });
-        }
-
 
         const tokens = await authenticate(code);
 
@@ -17,22 +25,17 @@ exports.callback = async (req, res) => {
         req.session.googleTokens = tokens;
 
 
-        // Redirect to frontend
         res.redirect(
             `${process.env.FRONTEND_URL}/dashboard`
         );
 
 
-    } catch (error) {
+    } catch(error) {
 
-        console.error(
-            "Google OAuth Error:",
-            error
-        );
-
+        console.error(error);
 
         res.status(500).json({
-            error: "Google authentication failed"
+            error:"Authentication failed"
         });
 
     }
