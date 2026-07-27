@@ -1,17 +1,6 @@
 const { getTasksClient } = require("../googleClient");
 
-
-async function getTaskLists(){
-
-    const tasks = getTasksClient();
-
-    const response =
-        await tasks.tasklists.list();
-
-    return response.data.items || [];
-}
-
-async function getTaskLists(tokens) {
+async function getTaskLists(tokens){
 
     const tasks =
         getTasksClient(tokens);
@@ -24,6 +13,7 @@ async function getTaskLists(tokens) {
     return response.data.items || [];
 
 }
+
 
 async function getTasks(taskListId){
 
