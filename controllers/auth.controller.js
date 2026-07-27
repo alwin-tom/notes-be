@@ -3,6 +3,22 @@ const {
     authenticate
 } = require("../googleClient");
 
+exports.session = (req, res) => {
+
+    if (req.session && req.session.googleTokens) {
+
+        return res.json({
+            authenticated: true
+        });
+
+    }
+
+
+    return res.json({
+        authenticated: false
+    });
+
+};
 
 exports.login = (req, res) => {
 
