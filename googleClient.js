@@ -1,5 +1,6 @@
 const { google } = require("googleapis");
 
+
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
@@ -7,20 +8,50 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 
-function setToken(tokens) {
-    oauth2Client.setCredentials(tokens);
-}
 
+function getAuthUrl() {
 
-function getTasksClient() {
-    return google.tasks({
-        version: "v1",
-        auth: oauth2Client
+    return oauth2Client.generateAuthUrl({
+
+        access_type: "offline",
+
+        prompt: "consent",
+
+        scope: [
+            "https://www.googleapis.com/auth/tasks"
+        ]
+
     });
+
 }
+
+
+
+async function authenticate(code) {
+
+    const { tokens } =
+        await oauth2Client.getToken(code);
+
+    return tokens;
+
+}
+
+
+
+function getOAuthClient() {
+
+    return oauth2Client;
+
+}
+
 
 
 module.exports = {
-    setToken,
-    getTasksClient
+
+    getAuthUrl,
+
+    authenticate,
+
+    getOAuthClient
+
 };
