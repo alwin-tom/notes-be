@@ -1,15 +1,24 @@
 const service=require("../services/task.service");
 
+exports.getLists = async(req,res)=>{
 
-exports.getLists=async(req,res)=>{
+    const tokens = req.session.googleTokens;
 
-    const data=await service.getTaskLists();
 
-    res.json(data);
+    if(!tokens){
+        return res.status(401).json({
+            error:"Google authentication required"
+        });
+    }
+
+
+    const lists =
+        await service.getTaskLists(tokens);
+
+
+    res.json(lists);
 
 };
-
-
 
 exports.getTasks=async(req,res)=>{
 
