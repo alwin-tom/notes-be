@@ -3,6 +3,27 @@ const {
     authenticate
 } = require("../googleClient");
 
+exports.logout = (req, res) => {
+
+    req.session.destroy((err)=>{
+
+        if(err){
+
+            return res.status(500).json({
+                error:"Logout failed"
+            });
+
+        }
+
+
+        res.json({
+            success:true
+        });
+
+    });
+
+};
+
 exports.session = (req, res) => {
 
     if (req.session && req.session.googleTokens) {
