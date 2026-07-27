@@ -11,7 +11,19 @@ async function getTaskLists(){
     return response.data.items || [];
 }
 
+async function getTaskLists(tokens) {
 
+    const tasks =
+        getTasksClient(tokens);
+
+
+    const response =
+        await tasks.tasklists.list();
+
+
+    return response.data.items || [];
+
+}
 
 async function getTasks(taskListId){
 
