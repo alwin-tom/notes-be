@@ -12,6 +12,9 @@
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "googleapis": "173.0.0",
+    "express-session": "1.19.0",
+    "dotenv": "17.4.2"
   }
 }
