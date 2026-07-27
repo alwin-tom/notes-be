@@ -14,9 +14,10 @@ exports.getLists=async(req,res)=>{
 exports.getTasks=async(req,res)=>{
 
     const data=
-        await service.getTasks(
-            req.params.listId
+        await service.getTaskLists(
+            req.session.googleTokens
         );
+
 
     res.json(data);
 
